@@ -1,7 +1,7 @@
 {
-  "id": "34d19f40-9306-11e8-80f8-e3fce4d54d7e",
-  "name": "VaultReader",
-  "friendlyName": "Vault Reader",
+  "id": "34d19f40-9306-11e8-80f8-e3fce4d54d70",
+  "name": "VaultReaderTest",
+  "friendlyName": "Vault Reader Test",
   "description": "Read secrets from HashiCorp Vault Server",
   "author": "Tomer Levitt",
   "helpMarkDown": "https://github.com/LTomer/vault-reader/blob/master/README.md",
@@ -13,7 +13,7 @@
   "version": {
     "Major": "3",
     "Minor": "0",
-    "Patch": "21"
+    "Patch": "22"
   },
   "releaseNotes": "",
   "minimumAgentVersion": "2.170.1",
