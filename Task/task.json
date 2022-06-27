@@ -12,8 +12,8 @@
   ],
   "version": {
     "Major": "3",
-    "Minor": "0",
-    "Patch": "20"
+    "Minor": "1",
+    "Patch": "0"
   },
   "releaseNotes": "",
   "minimumAgentVersion": "2.170.1",
@@ -110,6 +110,9 @@
       "ServiceNotExist": "Service does not define",
       "actionPreWarning": "Line %s, you selected Asterisk on pre action, best practice is to write the relevant fields.",
       "unknowKVVersion": "KV Version is unknown (%s).",
-      "KV2NotSupported": "This KV does not support KV version 2."
+      "KV2NotSupported": "This KV does not support KV version 2.",
+      "actionExportFail": "Line %s, Error while processing export action.",
+      "actionExpWarning": "Line %s, JSON key or value containing a newline character and it could affect the exported file.",
+      "actionExpObjWarning": "Line %s, Value contains an object instead of a string."
   }
 }

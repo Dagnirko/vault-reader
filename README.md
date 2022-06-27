@@ -81,6 +81,7 @@ _<span style="color:aqua">Azure-DevOps-Variable</span> can contain Letters (uppe
 | json | reads json object from <span style="color:lightpink">Path</span> and stores it into a file as json<br> <span style="color:lightgreen">Field</span> will contain location of the file schema. If the data and the scheme aren't equal it would fail<br> use * to skip the compare process (not recommended) | assigns file location into a variable [^5] [^6] |
 | yaml | reads json object from <span style="color:lightpink">Path</span> and stores it into a file as yaml<br> <span style="color:lightgreen">Field</span> will contain location of the json file schema. If the data and the scheme aren't equal it would fail<br> use * to skip the compare process (not recommended) | assigns file location into a variable [^5] [^6] |
 | rep | reads file from <span style="color:lightgreen">Field</span> and replaces the string \__[key]__ with a value that reads from <span style="color:lightpink">Path</span> and stores it into a file | assigns file location into a variable [^5] [^6]|
+| exp | export JSON object into file. The line define in the <span style="color:lightgreen">Field</span> as base64, %%KEY%% and %%VALUE%% defined place holder for key & value from the JSON object. | assigns file location into a variable [^5]|
 
 <br>
 
@@ -95,7 +96,7 @@ _<span style="color:aqua">Azure-DevOps-Variable</span> can contain Letters (uppe
 
 ## Examples:
 
-### How to use <span style="color:yellow">var</span> and <span style="color:yellow">pre</span> actions
+### **How to use <span style="color:yellow">var</span> and <span style="color:yellow">pre</span> actions**
 
 ![](Images/Doc/ExampleProjectA.png)
 
@@ -117,7 +118,7 @@ Read username & password in one line using <span style="color:yellow">pre</span>
 pre => DemoProjects/project-A => username,password => login
 ```
 
-### How to use <span style="color:yellow">raw</span> and <span style="color:yellow">base64</span> actions
+### **How to use <span style="color:yellow">raw</span> and <span style="color:yellow">base64</span> actions**
 
 ![](Images/Doc/ExampleProjectBServiceA.png)
 
@@ -133,7 +134,7 @@ raw =>  DemoProjects/project-B/service-A => rawData => file1
 base64 =>  DemoProjects/project-B/service-A => mySecret => secret
 ```
 
-### How to work with VaultReader variables
+### **How to work with VaultReader variables**
 
 This section refers to the previous image.
 ```
@@ -147,7 +148,7 @@ base64 => {servicePath} => mySecret => secret
 _You can also use a variable as a part of Path/Field._<br>
 _For example: {servicePath}/test (equal to DemoProjects/project-B/service-A/test)_
 
-### How to use <span style="color:yellow">json</span> action
+### **How to use <span style="color:yellow">json</span> action**
 
 ![](Images/Doc/ExampleProjectBServiceB.png)
 
@@ -174,7 +175,7 @@ servicePath <= DemoProjects/project-B
 # Read value using json action
 json => {servicePath}/service-B => config/service-b-template.json => configFile
 ```
-### How to use <span style="color:yellow">yaml</span> action
+### **How to use <span style="color:yellow">yaml</span> action**
 This section is based on the data that presented in the JSON explanation.
 
 ```
@@ -185,7 +186,7 @@ servicePath <= DemoProjects/project-B
 yaml => {servicePath}/service-B => config/service-b-template.json => configFile
 ```
 
-### How to use <span style="color:yellow">rep</span>lace action
+### **How to use <span style="color:yellow">rep</span>lace action**
 
 ![](Images/Doc/ExampleProjectA.png)
 
@@ -213,9 +214,31 @@ The variable $(secretFile) will contain the location of the updated file.<br>
 >kubectl apply -f $(secretFile)
 
 <br>
----
 
-### How to work with VaultReader __special variables__
+### **How to use <span style="color:yellow">exp</span>ort action**
+
+Export the keys and values from the JSON object (1 level) into a file, every key & value will be placed in deferent line by the format in the Field.
+The format is set as base64, the %%KEY%% and %%VALUE%% will replace with the key & value of each item.
+
+For example, we would like to convert JSON object to tfvars file (This type of file is used by terraform).
+![](Images/Doc/ExampleProjectA.png)
+
+Line format: %%KEY%% = "%%VALUE%%" <br>
+Line format (Base64): JSVLRVklJSA9ICIlJVZBTFVFJSUi
+
+The line we should add to the task:
+> exp => DemoProjects/project-A => JSVLRVklJSA9ICIlJVZBTFVFJSUi => tfvar_file
+
+The file that will create after the task is complete, the path to the file will set to tfvar_file.
+```
+environment = "dev"
+password = "p@assw0rd"
+username = "someone"
+```
+
+<br>
+
+### **How to work with VaultReader __special variables__**
 
 ```
 # Define a path

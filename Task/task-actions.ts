@@ -159,3 +159,28 @@ export function actionReplace(path_detailes: any, field: string, index: number, 
         tl.setResult(tl.TaskResult.Failed, tl.loc("writeFieldToFileFail", index, type));
     }
 }
+
+export function actionExport(path_detailes: any, field: string, index: number, type: string, var_name: string) {
+    if (!path_detailes) {
+        tl.setResult(tl.TaskResult.Failed, tl.loc("dataNotExist", index, field, type));
+        return;
+    }
+
+    let lineFormat = Buffer.from(field, 'base64').toString();
+    let contentArr = util.exportAction(path_detailes, index, lineFormat)
+    if (contentArr == undefined) {
+        return;
+    }
+
+    let filename: string = path.join(tl.getVariable('agent.tempDirectory') || '', var_name + "-" + Guid.create());
+
+    try {
+        let fileContent = contentArr.join("\n") + "\n"
+        util.writeToFile(filename, fileContent);
+        tl.setVariable(var_name, filename, false);
+    }
+    catch (error) {
+        tl.error(error);
+        tl.setResult(tl.TaskResult.Failed, tl.loc("writeFieldToFileFail", index, type));
+    }
+}
