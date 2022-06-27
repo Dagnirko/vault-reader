@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vault-reader",
     "name": "Vault Reader",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "publisher": "Tomer",
     "targets": [
         {
@@ -28,6 +28,9 @@
       "color": "rgb(34, 34, 34)",
       "theme": "dark"
     },
+    "galleryFlags": [
+      "Preview"
+    ],
     "content": {
       "details": {
           "path": "Overview.md"
